@@ -1,25 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, createContext } from "react";
+import "./App.css";
+import { Comp1 } from "./Comp1";
+interface IState{
+  user: string; 
+  setUser: (user:string) => void;
+}
+let initialState:IState={
+  user: "",
+  setUser: (user:string) => {}
+}
+export const UserContext= createContext(initialState);
 
 function App() {
+  const [user, setUser] = useState("Jesse Hall");
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <UserContext.Provider value={{user,setUser}}>
+        <h1>{`Hello ${user}!`}</h1>
+        <Comp1 />
+      </UserContext.Provider>
+    </>
   );
 }
 
